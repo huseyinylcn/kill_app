@@ -28,7 +28,6 @@ async function terminateProcess() {
         }
 
     } catch (err) {
-        console.log(err)
         return err
 
     }
