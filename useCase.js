@@ -2,41 +2,15 @@
 
 
 
-
-
-async function terminateProcess(data,utils) {
+async function terminateProcess(pumpsJSON,utils,arr) {
 
     try {
-
-        for (const obj of data.pumps) {
+        for (const obj of pumpsJSON.pumps) {
             let statusCode = obj.status.ecr | (parseInt(obj.status.pump) << 1) | (parseInt(obj.status.scu) << 2)
-            switch (statusCode) {
-                case 0:
-                    return await utils.killApp("firefox")
-                    
-                case 1:
-                    return await utils.killApp("firefox")
-                case 2:
-                    console.log(statusCode)
-                    return await utils.killApp("firefox")
-                case 3:
-                    console.log(statusCode)
-                    return await utils.killApp("firefox")
-                case 4:
-                    console.log(statusCode)
-                    return await utils.killApp("firefox")
-                case 5:
-                    console.log(statusCode)
-                    return await utils.killApp("firefox")
-                case 6:
-                    console.log(statusCode)
-                    return await utils.killApp("firefox")
-                case 7:
-                    console.log(statusCode)
-                    return await utils.killApp("firefox")
-
-                default:
-                    true;
+            if(statusCode > 0){
+                for(const app_name of arr){
+                    await utils.killApp(app_name)
+                }
             }
         }
 
